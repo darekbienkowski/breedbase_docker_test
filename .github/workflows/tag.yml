@@ -34,9 +34,17 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push container image
-        uses: docker/build-push-action@v2
+        uses: jlumbroso/free-disk-space@main
         with:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          tool-cache: true        
+          # all of these default to true, but feel free to set to
+          # "false" if necessary for your workflow
+          android: true
+          dotnet: true
+          haskell: false
+          large-packages: false
+          swap-storage: false
